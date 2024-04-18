@@ -1,0 +1,22 @@
+:root { --size: 2vh; }
+
+@font-face { font-family: greek; src: url(fonts/newathu.ttf); }
+@font-face { font-family: mono;  src: url(fonts/mono.ttf); }
+@font-face { font-family: f1;    src: url(fonts/freeserif.ttf); }
+@font-face { font-family: f2;    src: url(fonts/freesans.ttf); }
+
+@page { margin: 1.6em .8em .8em .8em; }
+@page book:left { @top-left { content: string(book); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:right { @top-right { content: string(chapter); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:blank { @top-left { content: ""; } @top-right { content: ""; } }
+
+* { margin: 0; padding: 0; }
+body { font-size: var(--size); text-align: justify; font-family: greek, mono, f1, f2; line-height: 1.2; }
+h1 { font-family: mono; font-weight: 600; font-size: 5vh; margin: 40vh 0; padding: 0; text-align: center; }
+info { display: flex; width: 100%; justify-content: space-between; }
+book { string-set: book attr(data-book); display: block; break-before: left; page: book; }
+chapter { string-set: chapter attr(data-chapter); display: flex; }
+chapter:before { content: attr(data-chapter); font-family: mono; font-weight: 600; }
+column { display: block; padding: 0 .5em; }
+verse { margin: 0; padding: 0; display: inline; }
+verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
