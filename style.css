@@ -20,4 +20,7 @@ chapter:before { content: attr(data-chapter); font-family: mono; font-weight: 60
 column { display: block; padding: 0 .5em; hyphens: auto; }
 verse { margin: 0; padding: 0; display: inline; }
 chapter verse[data-verse="1"]:before { display: none; }
+chapter[data-chapter="1"]:before { display: none; }
+chapter[data-chapter="1"] verse[data-verse="1"]::first-letter { font-size: 2.2em; float: left; line-height: 0.5em; }
+verse[data-verse="1"] { display: inline-block; }
 verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
