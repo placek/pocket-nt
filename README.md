@@ -7,9 +7,8 @@ This project is designed to generate a printable PDF file that provides a parall
 
 ## Features
 - **Parallel text comparison:** Directly compares two different Bible texts side by side, starting synchronization at the beginning of each chapter.
-- **Multiple texts available:** Includes several Bible texts for comparison, which can be found in the `db/` directory of the project.
-- **Pocket PDF format:** Generates a pocket-sized PDF suitable for printing or viewing in standard PDF viewers.
-- **Data source:** The Bible texts used in this project are sourced from the library of Bible databases[^1].
+- **Multiple texts available:** Includes several Bible texts for comparison. The Bible texts used in this project are sourced from the library of Bible databases[^1].
+- **Pocket PDF format:** Generates a pocket-sized PDF suitable for printing or viewing in standard PDF viewers. However other formats are also available.
 
 ## Getting Started
 To use this PDF generator, follow these steps:
