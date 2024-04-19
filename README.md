@@ -30,11 +30,11 @@ To use this PDF generator, follow these steps:
    make left=PAU right=NVUL
    ```
    By default, the make command prepares two versions of the PDF: one for use on electronic devices (such as PCs and mobile devices) `*_screen.pdf` and one ready for printing (with printing marks and bevels) `*_print.pdf`. To select only one option for generation, use dedicated targets:
-  ```
-  make screen left=CVUL right=NA27
-  make print left=CVUL right=NA27
-  ```
-  **NOTE** If there is any problem with the generation of any variant, please [report that](https://github.com/placek/pocket-nt/issues/new).
+   ```
+   make screen left=CVUL right=NA27
+   make print left=CVUL right=NA27
+   ```
+   **NOTE** If there is any problem with the generation of any variant, please [report that](https://github.com/placek/pocket-nt/issues/new).
 
 3. **View or print the PDF:**
    Once generated, the PDF will be available in the specified output directory. You can open it with any PDF viewer or send it to a printer.
