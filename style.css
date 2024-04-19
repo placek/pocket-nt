@@ -12,7 +12,7 @@
 
 * { margin: 0; padding: 0; }
 body { font-size: var(--size); text-align: justify; font-family: greek, mono, f1, f2; line-height: 1.2; }
-h1 { font-family: mono; font-weight: 600; font-size: 5vh; margin: 40vh 0; padding: 0; text-align: center; }
+h1 { font-family: mono; font-weight: 600; font-size: 6vh; margin: 46vh 0; padding: 0; text-align: center; }
 info { display: flex; width: 100%; justify-content: space-between; }
 book { string-set: book attr(data-book); display: block; break-before: left; page: book; }
 chapter { string-set: chapter attr(data-chapter); display: flex; }
