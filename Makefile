@@ -26,10 +26,10 @@ $(left)-$(right).html: info-$(left).html info-$(right).html chapters.sql render.
 	unzip -j "$<"
 
 %_screen.pdf: %.html
-	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --no-network --page-size=$(size) --media=screen --output="/data/$@" "/data/$<"
+	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=screen --output="/data/$@" "/data/$<"
 
 %_print_raw.pdf: %.html
-	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --no-network --page-size=$(size) --media=print --style=/data/print.css --output="/data/$@" "/data/$<"
+	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=print --style=/data/print.css --output="/data/$@" "/data/$<"
 
 %_print.pdf: %_print_raw.pdf
 	gs -dPDFX -dBATCH -dNOPAUSE -dNOOUTERSAVE -dNoOutputFonts -sDEVICE=pdfwrite -sColorConversionStrategy=CMYK -dProcessColorModel=/DeviceCMYK -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dHaveTransparency=false -sOutputFile="$@" "$<"
