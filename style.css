@@ -17,6 +17,6 @@ info { display: flex; width: 100%; justify-content: space-between; }
 book { string-set: book attr(data-book); display: block; break-before: left; page: book; -prince-bookmark-level: 1; -prince-bookmark-label: attr(data-book); }
 chapter { string-set: chapter attr(data-chapter); display: flex; -prince-bookmark-level: 2; -prince-bookmark-label: attr(data-chapter); }
 chapter:before { content: attr(data-chapter); font-family: mono; font-weight: 600; }
-column { display: block; padding: 0 .5em; }
+column { display: block; padding: 0 .5em; hyphens: auto; }
 verse { margin: 0; padding: 0; display: inline; }
 verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }

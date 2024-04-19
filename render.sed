@@ -13,5 +13,6 @@ s/^[0-9]*\|([^|]*)\|1\|([^|]*)\|([^|]*)$/<book data-book="\1"><chapter data-chap
 s/^[0-9]*\|[^|]*\|([^|]*)\|([^|]*)\|([^|]*)$/<chapter data-chapter="\1"><column class="left">\2<\/column><column class="right">\3<\/column><\/chapter>/
 s/\{\{/</g
 s/\}\}/>/g
+s/\b(z|do|na|przy|bez|dla|nad|pod|przed|po|w|o|u|ku|za|a|i|oraz|ale|lecz|czy|czyli|więc|bo|się|ci|mu|mi|jej|jemu|mnie|tobie|sobie|kto|co|który|która|które|jak|gdzie) /\1\&nbsp;/gI
 
 $a</book>
