@@ -1,6 +1,7 @@
 size ?= A6
 left ?= PAU
 right ?= NA28
+rate ?= 15
 
 style := /app/style.css
 print := /app/print.css
@@ -20,7 +21,7 @@ $(left)-$(right).html: info-$(left).html info-$(right).html cross_references.SQL
 	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"$(style)\"></head><body><h1>pocket-nt</h1><info>"; \
 	  cat "info-$(left).html" "info-$(right).html"; \
 	  echo "</info>"; \
-	  sqlite3 < $(chapters) | sed -rf $(render); \
+	  sed 's/<RATE>/$(rate)/' $(chapters) | sqlite3 | sed -rf $(render); \
 	  echo "</body></html>"; \
 	} > "$@"
 
@@ -37,7 +38,7 @@ cross_references.csv: cross_references.txt
 	sed -rf cr_to_db.sed "$<" > "$@"
 
 cross_references.SQLite3: cross_references.csv
-	sqlite3 "$@" "create table cross_references (book_number integer, chapter integer, verse integer, b1 integer, c1 integer, v1 integer, b2 integer, c2 integer, v2 integer, rate integer);"
+	sqlite3 "$@" "CREATE TABLE cross_references (book_number INTEGER, chapter INTEGER, verse INTEGER, b1 INTEGER, c1 INTEGER, v1 INTEGER, b2 INTEGER, c2 INTEGER, v2 INTEGER, rate INTEGER);"
 	sqlite3 "$@" ".mode csv" ".import $< cross_references"
 
 %.SQLite3: %.zip
@@ -54,7 +55,7 @@ cross_references.SQLite3: cross_references.csv
 
 info-%.html: %.SQLite3
 	{ echo "<column><description>"; \
-	  sqlite3 "$<" "select value from info where name = 'description'" | sed "s/,/<br>/g"; \
+	  sqlite3 "$<" "SELECT value FROM info WHERE name = 'description'" | sed "s/,/<br>/g"; \
 	  echo "</description></column>"; \
 	} > "$@"
 

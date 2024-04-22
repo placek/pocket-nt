@@ -25,3 +25,4 @@ chapter[data-chapter="1"] verse[data-verse="1"] { padding-top: 1em; }
 chapter[data-chapter="1"] verse[data-verse="1"]::first-letter { font-size: 2.2em; float: left; line-height: 0.5em; }
 verse[data-verse="1"] { display: inline-block; }
 verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
+verse[data-references]:after { content: attr(data-references); font-family: mono; font-size: .6em; margin: 0 .5em; vertical-align: baseline; }
