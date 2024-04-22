@@ -1,8 +1,9 @@
 size ?= A6
 left ?= BT'03
 right ?= NA28
-style ?= /app/style.css
-print ?= /app/print.css
+
+style := /app/style.css
+print := /app/print.css
 chapters := /app/chapters.sql
 render := /app/render.sed
 
@@ -43,7 +44,3 @@ info-%.html: %.SQLite3
 	  sqlite3 "$<" "select value from info where name = 'description'" | sed "s/,/<br>/g"; \
 	  echo "</description></column>"; \
 	} > "$@"
-
-.PHONY: clean
-clean:
-	rm -f *.html *.pdf *.zip *.SQLite3 *.db

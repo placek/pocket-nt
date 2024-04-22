@@ -22,25 +22,29 @@ To use this PDF generator, follow these steps:
 2. **Run the PDF generator script:**
    Execute the script to generate the PDF:
    ```
-   make
+   docker run -v $(pwd):/data $(docker build -q .)
    ```
    Alternatively, you can use any known versions of the Bible:
    ```
-   make left=PAU right=NVUL
+   docker run -v $(pwd):/data $(docker build -q .) left=PAU right=NVUL
    ```
    By default, the make command prepares two versions of the PDF: one for use on electronic devices (such as PCs and mobile devices) `*_screen.pdf` and one ready for printing (with printing marks and bevels) `*_print.pdf`. To select only one option for generation, use dedicated targets:
    ```
-   make screen left=CVUL right=NA27
-   make print left=CVUL right=NA27
+   docker run -v $(pwd):/data $(docker build -q .) screen left=CVUL right=NA27
+   docker run -v $(pwd):/data $(docker build -q .) print left=CVUL right=NA27
+   ```
+   The dimentions of the book can be also adjusted:
+   ```
+   docker run -v $(pwd):/data $(docker build -q .) screen size=A4
    ```
    **NOTE** If there is any problem with the generation of any variant, please [report that](https://github.com/placek/pocket-nt/issues/new).
 
 3. **View or print the PDF:**
    Once generated, the PDF will be available in the specified output directory. You can open it with any PDF viewer or send it to a printer.
 
-## Dependencies
+## Build dependencies
 - SQLite3 3.43.2
-- [PrinceXML 15.3](https://www.princexml.com) (via Docker image[^2])
+- [PrinceXML 15.3](https://www.princexml.com)
 - GNU Make 4.4.1
 - GNU sed 4.9
 - cUrl 8.4.0
@@ -59,4 +63,3 @@ There are some limitations on the two aspects of the resources used by this tool
 
 
 [^1]: https://github.com/placek/bible-databases
-[^2]: https://hub.docker.com/r/silquenarmo/princexml
