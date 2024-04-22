@@ -1,5 +1,5 @@
 size ?= A6
-left ?= BT'03
+left ?= PAU
 right ?= NA28
 
 style := /app/style.css
