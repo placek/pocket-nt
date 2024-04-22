@@ -27,6 +27,19 @@ $(left)-$(right).html: info-$(left).html info-$(right).html
 %.zip:
 	curl -s -o "$@" "https://raw.githubusercontent.com/placek/bible-databases/master/$(basename $@).zip"
 
+cross_references.zip:
+	curl -s -o "$@" "https://a.openbible.info/data/cross-references.zip"
+
+cross_references.txt: cross_references.zip
+	unzip -j "$<"
+
+cross_references.csv: cross_references.txt
+	sed -rf cr_to_db.sed "$<" > "$@"
+
+cross_references.SQLite3: cross_references.csv
+	sqlite3 "$@" "create table cross_references (book_number integer, chapter integer, verse integer, b1 integer, c1 integer, v1 integer, b2 integer, c2 integer, v2 integer, rate integer);"
+	sqlite3 "$@" ".mode csv" ".import $< cross_references"
+
 %.SQLite3: %.zip
 	unzip -j "$<"
 

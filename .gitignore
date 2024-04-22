@@ -3,3 +3,6 @@
 *.zip
 *.SQLite3
 *.db
+cross_references.csv
+cross_references.sed
+cross_references.txt
