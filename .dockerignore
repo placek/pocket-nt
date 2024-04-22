@@ -1,0 +1,11 @@
+*.html
+*.pdf
+*.zip
+*.SQLite3
+*.db
+.git/
+.github/
+README.md
+shell.nix
+LICENSE
+Dockerfile

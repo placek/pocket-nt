@@ -1,6 +1,10 @@
 size ?= A6
 left ?= BT'03
 right ?= NA28
+style ?= /app/style.css
+print ?= /app/print.css
+chapters := /app/chapters.sql
+render := /app/render.sed
 
 all: screen print
 
@@ -10,12 +14,12 @@ screen: $(left)-$(right)_screen.pdf
 .PHONY: print
 print: $(left)-$(right)_print.pdf
 
-$(left)-$(right).html: info-$(left).html info-$(right).html chapters.sql render.sed
+$(left)-$(right).html: info-$(left).html info-$(right).html
 	mv "$(left).SQLite3" left.db; mv "$(right).SQLite3" right.db; \
-	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"style.css\"></head><body><h1>pocket-nt</h1><info>"; \
+	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"$(style)\"></head><body><h1>pocket-nt</h1><info>"; \
 	  cat "info-$(left).html" "info-$(right).html"; \
 	  echo "</info>"; \
-	  sqlite3 < chapters.sql | sed -rf render.sed; \
+	  sqlite3 < $(chapters) | sed -rf $(render); \
 	  echo "</body></html>"; \
 	} > "$@"
 
@@ -26,10 +30,10 @@ $(left)-$(right).html: info-$(left).html info-$(right).html chapters.sql render.
 	unzip -j "$<"
 
 %_screen.pdf: %.html
-	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=screen --output="/data/$@" "/data/$<"
+	prince --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=screen --output="/data/$@" "/data/$<"
 
 %_print_raw.pdf: %.html
-	docker run --rm -v "`pwd`":/data silquenarmo/princexml:15.3 --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=print --style=/data/print.css --output="/data/$@" "/data/$<"
+	prince --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=print --style=$(print) --output="/data/$@" "/data/$<"
 
 %_print.pdf: %_print_raw.pdf
 	gs -dPDFX -dBATCH -dNOPAUSE -dNOOUTERSAVE -dNoOutputFonts -sDEVICE=pdfwrite -sColorConversionStrategy=CMYK -dProcessColorModel=/DeviceCMYK -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dHaveTransparency=false -sOutputFile="$@" "$<"
