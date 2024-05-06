@@ -1,7 +1,8 @@
 size ?= A6
 left ?= PAU
 right ?= NA28
-rate ?= 15
+rate ?= 10
+name ?= pocket-nt
 
 style := /app/style.css
 print := /app/print.css
@@ -18,7 +19,7 @@ print: $(left)-$(right)_print.pdf
 
 $(left)-$(right).html: info-$(left).html info-$(right).html cross_references.SQLite3
 	mv "$(left).SQLite3" left.db; mv "$(right).SQLite3" right.db; \
-	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"$(style)\"></head><body><h1>pocket-nt</h1><info>"; \
+	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"$(style)\"></head><body><info><name>$(name)</name>"; \
 	  cat "info-$(left).html" "info-$(right).html"; \
 	  echo "</info>"; \
 	  sed 's/<RATE>/$(rate)/' $(chapters) | sqlite3 | sed -rf $(render); \
