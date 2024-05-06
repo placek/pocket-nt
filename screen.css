@@ -1,0 +1,51 @@
+:root { --size: 2.1vh; }
+
+@font-face { font-family: greek; src: url(fonts/newathu.ttf); }
+@font-face { font-family: mono;  src: url(fonts/mono.ttf); }
+@font-face { font-family: f1;    src: url(fonts/freeserif.ttf); }
+@font-face { font-family: f2;    src: url(fonts/freesans.ttf); }
+
+@page { margin: 7vh 5vh 5vh 5vh; }
+@page book:left { @top-left { content: string(book); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:right { @top-right-corner { content: string(chapter); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:blank { @top-left { content: ""; } @top-right { content: ""; } }
+
+* { margin: 0; padding: 0; }
+nt { font-size: var(--size); text-align: justify; font-family: greek, mono, f1, f2; line-height: 1.2; font-variant-ligatures: historical-ligatures; }
+
+info { width: 100%; justify-content: space-between; }
+info name { font-family: mono; font-weight: 600; font-size: 6vh; margin: 47vh 0; padding: 0; text-align: center; display: block; }
+
+book { string-set: book attr(name); display: block; break-before: left; page: book; -prince-bookmark-level: 1; -prince-bookmark-label: attr(name); }
+
+column, left, right { display: block; padding: 0 .5em; hyphens: auto; min-width: 45%; }
+
+chapter { display: flex; }
+chapter[number="1"] verse[number="1"] { padding-top: 1em; }
+
+number { string-set: chapter content(); -prince-bookmark-level: 2; -prince-bookmark-label: string(chapter); font-family: mono; font-weight: 600; -prince-float: outside; -prince-margin-outside: -1em; break-after: avoid; }
+chapter[number="1"] number { display: none; }
+
+book chapter:first-of-type verse[number="1"] { display: block; }
+book chapter:first-of-type verse[number="1"]::first-letter { font-size: 2.2em; float: left; line-height: 0.5em; }
+book chapter:first-of-type verse[number="1"]:before { display: none; }
+verse { display: inline; }
+verse:before { content: attr(number); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
+
+reference { font-family: mono; font-size: .6em; margin: 0 .5em; vertical-align: baseline; display: inline; }
+
+reference[rate="1"],
+reference[rate="2"],
+reference[rate="3"],
+reference[rate="4"],
+reference[rate="5"],
+reference[rate="6"],
+reference[rate="7"],
+reference[rate="8"],
+reference[rate="9"],
+reference[rate="10"],
+reference[rate="11"],
+reference[rate="12"],
+reference[rate="13"],
+reference[rate="14"]
+  { display: none; }

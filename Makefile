@@ -3,7 +3,7 @@ left ?= PAU
 right ?= NA28
 name ?= pocket-nt
 
-style := /app/style.css
+screen:= /app/screen.css
 print := /app/print.css
 chapters := /app/chapters.sql
 render := /app/render.sed
@@ -16,13 +16,15 @@ screen: $(left)-$(right)_screen.pdf
 .PHONY: print
 print: $(left)-$(right)_print.pdf
 
-$(left)-$(right).html: info-$(left).html info-$(right).html cross_references.SQLite3
+$(left)-$(right).xml: info-$(left).xml info-$(right).xml cross_references.SQLite3
 	mv "$(left).SQLite3" left.db; mv "$(right).SQLite3" right.db; \
-	{ echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"$(style)\"></head><body><info><name>$(name)</name>"; \
-	  cat "info-$(left).html" "info-$(right).html"; \
+	{ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"; \
+	  echo "<nt>"; \
+	  echo "<info>"; \
+	  echo "<name>$(name)</name>$$(cat 'info-$(left).xml' 'info-$(right).xml')"; \
 	  echo "</info>"; \
-	  sed 's/<RATE>/$(rate)/' $(chapters) | sqlite3 | sed -rf $(render); \
-	  echo "</body></html>"; \
+	  cat $(chapters) | sqlite3 | sed -rf $(render); \
+	  echo "</nt>"; \
 	} > "$@"
 
 %.zip:
@@ -44,21 +46,21 @@ cross_references.SQLite3: cross_references.csv
 %.SQLite3: %.zip
 	unzip -j "$<"
 
-%_screen.pdf: %.html
-	prince --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=screen --output="/data/$@" "/data/$<"
+%_screen.pdf: %.xml
+	prince --verbose --pdf-title="$(name)" --no-network --page-size=$(size) --media=screen --style=$(screen) --output="/data/$@" "/data/$<"
 
-%_print_raw.pdf: %.html
-	prince --verbose --pdf-title="pocket-nt" --no-network --page-size=$(size) --media=print --style=$(print) --output="/data/$@" "/data/$<"
+%_print_raw.pdf: %.xml
+	prince --verbose --pdf-title="$(name)" --no-network --page-size=$(size) --media=print --style=$(print) --output="/data/$@" "/data/$<"
 
 %_print.pdf: %_print_raw.pdf
 	gs -dPDFX -dBATCH -dNOPAUSE -dNOOUTERSAVE -dNoOutputFonts -sDEVICE=pdfwrite -sColorConversionStrategy=CMYK -dProcessColorModel=/DeviceCMYK -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dHaveTransparency=false -sOutputFile="$@" "$<"
 
-info-%.html: %.SQLite3
-	{ echo "<column><description>"; \
-	  sqlite3 "$<" "SELECT value FROM info WHERE name = 'description'" | sed "s/,/<br>/g"; \
-	  echo "</description></column>"; \
+info-%.xml: %.SQLite3
+	{ echo "<description>"; \
+	  sqlite3 "$<" "SELECT value FROM info WHERE name = 'description'"; \
+	  echo "</description>"; \
 	} > "$@"
 
 .PHONY: clean
 clean:
-	rm -f *.html *.pdf *.db *.txt *.csv *.SQLite3
+	rm -f *.xml *.pdf *.db *.txt *.csv *.SQLite3

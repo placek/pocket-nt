@@ -9,11 +9,11 @@ s/\s+/ /g                     # remove extra whitespaces
 s/\s+([,\.\?:;!\]\)\}»])/\1/g # remove whitespaces before punctuation and closing brackets
 s/([\(\{\[«])\s+/\1/g         # remove whitespaces after opening brackets
 
-s/^[0-9]*\|([^|]*)\|1\|([^|]*)\|([^|]*)$/<\/book><book data-book="\1"><chapter data-chapter="1"><column class="left">\2<\/column><column class="right">\3<\/column><\/chapter>/
-s/^[0-9]*\|[^|]*\|([^|]*)\|([^|]*)\|([^|]*)$/<chapter data-chapter="\1"><column class="left">\2<\/column><column class="right">\3<\/column><\/chapter>/
+s/^[0-9]*\|([^|]*)\|1\|([^|]*)\|([^|]*)$/<\/book><book name="\1"><number>1<\/number><chapter><left>\2<\/left><right>\3<\/right><\/chapter>/
+s/^[0-9]*\|[^|]*\|([^|]*)\|([^|]*)\|([^|]*)$/<number>\1<\/number><chapter><left>\2<\/left><right>\3<\/right><\/chapter>/
 s/\{\{/</g
 s/\}\}/>/g
-s/\b(z|do|na|przy|bez|dla|nad|pod|przed|po|w|o|u|ku|za|a|i|oraz|ale|lecz|czy|czyli|więc|bo|się|ci|mu|mi|jej|jemu|mnie|tobie|sobie|kto|co|który|która|które|jak|gdzie) /\1\&nbsp;/gI
+s/\b(z|do|na|przy|bez|dla|nad|pod|przed|po|w|o|u|ku|za|a|i|oraz|ale|lecz|czy|czyli|więc|bo|się|ci|mu|mi|jej|jemu|mnie|tobie|sobie|kto|co|który|która|które|jak|gdzie) /\1\ /gI
 
 1s/<\/book>//
 $a</book>

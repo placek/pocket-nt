@@ -5,10 +5,10 @@ ATTACH DATABASE 'cross_references.SQLite3' AS cr;
 WITH
   CrossReferences AS (
     SELECT c.book_number, chapter, verse, b2,
-      GROUP_CONCAT('{{reference data-rate="' || rate || '"}}' ||
+      GROUP_CONCAT('{{reference rate="' || rate || '"}}' ||
         CASE
-        WHEN b2 = '' THEN b.short_name || '&nbsp;' || c1 || ',' || v1
-        ELSE b.short_name || '&nbsp;' || c1 || ',' || v1 || '-' || c2 || ',' || v2
+        WHEN b2 = '' THEN b.short_name || ' ' || c1 || ',' || v1
+        ELSE b.short_name || ' ' || c1 || ',' || v1 || '-' || c2 || ',' || v2
         END || '{{/reference}}'
         , ' '
       ) AS refs
@@ -35,9 +35,9 @@ WITH
       GROUP_CONCAT(
           CASE
           WHEN book_number IS NOT NULL THEN
-            '{{verse data-verse="' || verse || '"}}' || text || IFNULL(refs, '') || '{{/verse}}'
+            '{{verse number="' || verse || '"}}' || text || IFNULL(refs, '') || '{{/verse}}'
           ELSE
-            '{{verse data-verse="' || verse || '"}}' || text || '{{/verse}}'
+            '{{verse number="' || verse || '"}}' || text || '{{/verse}}'
           END, ''
       ) AS verses
     FROM AllVersesD1 LEFT JOIN CrossReferences
@@ -46,7 +46,7 @@ WITH
   ),
   AllChaptersD2 AS (
     SELECT book_number, book, chapter,
-      GROUP_CONCAT('{{verse data-verse="' || verse || '"}}' || text || '{{/verse}}', '') AS verses
+      GROUP_CONCAT('{{verse number="' || verse || '"}}' || text || '{{/verse}}', '') AS verses
     FROM AllVersesD2
     GROUP BY book_number, chapter
   )

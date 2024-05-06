@@ -1,1 +1,45 @@
-@page { marks: crop cross;  bleed: 5mm; -prince-trim: 5mm; }
+:root { --size: 2vh; }
+
+@font-face { font-family: greek; src: url(fonts/newathu.ttf); }
+@font-face { font-family: mono;  src: url(fonts/mono.ttf); }
+@font-face { font-family: f1;    src: url(fonts/freeserif.ttf); }
+@font-face { font-family: f2;    src: url(fonts/freesans.ttf); }
+
+@page { margin: 1.6em .8em .8em .8em; marks: crop cross;  bleed: 5mm; -prince-trim: 5mm; }
+@page book:left { @top-left { content: string(book); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:right { @top-right { content: string(chapter); font-family: mono; font-weight: 600; font-size: var(--size); } }
+@page book:blank { @top-left { content: ""; } @top-right { content: ""; } }
+
+* { margin: 0; padding: 0; }
+body { font-size: var(--size); text-align: justify; font-family: greek, mono, f1, f2; line-height: 1.2; font-variant-ligatures: historical-ligatures; }
+
+info { display: flex; width: 100%; justify-content: space-between; }
+info name { font-family: mono; font-weight: 600; font-size: 6vh; margin: 46vh 0; padding: 0; text-align: center; display: block; }
+
+book { string-set: book attr(data-book); display: block; break-before: left; page: book; -prince-bookmark-level: 1; -prince-bookmark-label: attr(data-book); }
+
+column { display: block; padding: 0 .5em; hyphens: auto; }
+
+chapter { string-set: chapter attr(data-chapter); display: flex; -prince-bookmark-level: 2; -prince-bookmark-label: attr(data-chapter); }
+chapter:before { content: attr(data-chapter); font-family: mono; font-weight: 600; }
+chapter[data-chapter="1"]:before { display: none; }
+chapter[data-chapter="1"] verse[data-verse="1"] { padding-top: 1em; }
+chapter[data-chapter="1"] verse[data-verse="1"]::first-letter { font-size: 2.2em; float: left; line-height: 0.5em; }
+
+verse { display: inline; }
+verse[data-verse="1"] { display: inline-block; }
+verse[data-verse="1"]:before { display: none; }
+verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
+
+reference { font-family: mono; font-size: .6em; margin: 0 .5em; vertical-align: baseline; display: inline; }
+
+reference[data-rate="1"],
+reference[data-rate="2"],
+reference[data-rate="3"],
+reference[data-rate="4"],
+reference[data-rate="5"],
+reference[data-rate="6"],
+reference[data-rate="7"],
+reference[data-rate="8"],
+reference[data-rate="9"]
+  { display: none; }
