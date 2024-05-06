@@ -14,7 +14,7 @@ WITH
       ) AS refs
     FROM cr.cross_references c
     LEFT JOIN db1.books_all b ON c.b1 = b.book_number
-    WHERE c.rate > <RATE>
+    WHERE c.rate > 0
     GROUP BY c.book_number, chapter, verse
     ORDER BY rate DESC
   ),

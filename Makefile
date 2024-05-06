@@ -1,7 +1,6 @@
 size ?= A6
 left ?= PAU
 right ?= NA28
-rate ?= 10
 name ?= pocket-nt
 
 style := /app/style.css

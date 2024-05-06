@@ -32,3 +32,14 @@ verse[data-verse="1"]:before { display: none; }
 verse:before { content: attr(data-verse); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
 
 reference { font-family: mono; font-size: .6em; margin: 0 .5em; vertical-align: baseline; display: inline; }
+
+reference[data-rate="1"],
+reference[data-rate="2"],
+reference[data-rate="3"],
+reference[data-rate="4"],
+reference[data-rate="5"],
+reference[data-rate="6"],
+reference[data-rate="7"],
+reference[data-rate="8"],
+reference[data-rate="9"]
+  { display: none; }
