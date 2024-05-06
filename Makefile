@@ -7,6 +7,7 @@ screen:= /app/screen.css
 print := /app/print.css
 chapters := /app/chapters.sql
 render := /app/render.sed
+url := https://github.com/placek/pocket-nt
 
 all: screen print
 
@@ -20,8 +21,11 @@ $(left)-$(right).xml: info-$(left).xml info-$(right).xml cross_references.SQLite
 	mv "$(left).SQLite3" left.db; mv "$(right).SQLite3" right.db; \
 	{ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"; \
 	  echo "<nt>"; \
+	  echo "<name>$(name)</name>"; \
+	  echo "<logo></logo>"; \
 	  echo "<info>"; \
-	  echo "<name>$(name)</name>$$(cat 'info-$(left).xml' 'info-$(right).xml')"; \
+	  echo "$$(cat 'info-$(left).xml' 'info-$(right).xml')"; \
+	  echo "<description>$(url)</description>"; \
 	  echo "</info>"; \
 	  cat $(chapters) | sqlite3 | sed -rf $(render); \
 	  echo "</nt>"; \
