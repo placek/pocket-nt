@@ -1,4 +1,4 @@
-:root { --size: 2.1vh; }
+:root { --size: 2.3vh; }
 
 @font-face { font-family: greek; src: url(fonts/newathu.ttf); }
 @font-face { font-family: mono;  src: url(fonts/mono.ttf); }
@@ -33,7 +33,7 @@ book chapter:first-of-type verse[number="1"] { display: block; }
 book chapter:first-of-type verse[number="1"]::first-letter { font-size: 2.2em; float: left; line-height: 0.5em; }
 book chapter:first-of-type verse[number="1"]:before { display: none; }
 verse { display: inline; }
-verse:before { content: attr(number); font-family: mono; font-weight: 600; font-size: .6em; margin: 0 .5em; vertical-align: super; }
+verse:before { content: attr(number); font-family: mono; font-weight: 600; font-size: .5em; margin: 0 .5em; vertical-align: super; }
 
 reference { font-family: mono; font-size: .6em; margin: 0 .5em; vertical-align: baseline; display: inline; }
 
